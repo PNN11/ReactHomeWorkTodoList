@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Head = styled("header")`
-  background-color: red;
-
+  background: linear-gradient(20deg, #dfb1b1, lightblue);
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
   > h1 {
     color: white;
   }
