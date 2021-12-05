@@ -11,5 +11,10 @@ export const ListIt = styled("li")`
   background: linear-gradient(45deg, aliceblue, #dfdcdc);
   > p {
     font-size: 18px;
+    text-decoration: ${(props) => {
+      if (props.done) {
+        return "line-through";
+      }
+    }};
   }
 `;

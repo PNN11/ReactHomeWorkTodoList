@@ -1,9 +1,9 @@
 import { Btn } from "./Button.styles";
 
-const Button = (props) => {
+const Button = ({ children, name, ...buttonProps }) => {
   return (
-    <Btn type="button" primary={props.primary} size={props.size}>
-      {props.name}
+    <Btn primary={children} {...buttonProps}>
+      {name}
     </Btn>
   );
 };
