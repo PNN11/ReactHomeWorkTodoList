@@ -53,35 +53,42 @@ class App extends React.Component {
 
   render() {
     const { todoList, filterValue, filterStatus, deletedTodo } = this.state;
-    const filterList = () => {
-      if (filterValue) {
-        return todoList.filter((todo) =>
-          todo.name.toUpperCase().includes(filterValue.toUpperCase())
-        );
-      }
+    const filterListByStatus = () => {
       if (filterStatus === "Удалённые") {
         return deletedTodo;
       }
       if (filterStatus === "Выполненные") {
         return todoList.filter((todo) => todo.done === true);
-      } else {
-        return todoList;
       }
+      return todoList;
     };
-    const filteredList = filterList();
+    const filterListByValue = (list) => {
+      if (filterValue) {
+        return list.filter((todo) =>
+          todo.name.toUpperCase().includes(filterValue.toUpperCase())
+        );
+      }
+      return list;
+    };
+    const filteredList = filterListByValue(filterListByStatus());
     return (
       <div className="wrapper">
         <Header todoNumber={filteredList.length} />
-        <Filter
-          filterStatus={filterStatus}
-          onChangeFilterValue={this.handleChangeFilterValue}
-          onChangeFilterStatus={this.handleChangeFilterStatus}
-        />
-        <List
-          list={filteredList}
-          onDoneTodo={this.handleDoneTodo}
-          onDeleteTodo={this.handleDeleteTodo}
-        />
+        {(todoList.length > 0 || deletedTodo.length > 0) && (
+          <>
+            <Filter
+              filterStatus={filterStatus}
+              onChangeFilterValue={this.handleChangeFilterValue}
+              onChangeFilterStatus={this.handleChangeFilterStatus}
+            />
+            <List
+              list={filteredList}
+              onDoneTodo={this.handleDoneTodo}
+              onDeleteTodo={this.handleDeleteTodo}
+            />
+          </>
+        )}
+
         <Form onCreateTodo={this.handleCreateTodo} />
       </div>
     );

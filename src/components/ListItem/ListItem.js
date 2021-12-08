@@ -20,19 +20,13 @@ class ListItem extends React.Component {
         <p>{name}</p>
         <div>
           {!done && (
-            <Button
-              type="button"
-              name="Выполнено"
-              size="small"
-              onClick={this.handleDone}
-            />
+            <Button type="button" size="small" onClick={this.handleDone}>
+              Выполнено
+            </Button>
           )}
-          <Button
-            type="button"
-            name="Удалить"
-            size="small"
-            onClick={this.handleDelete}
-          />
+          <Button type="button" size="small" onClick={this.handleDelete}>
+            Удалить
+          </Button>
         </div>
       </ListIt>
     );

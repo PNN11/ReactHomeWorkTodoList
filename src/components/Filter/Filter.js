@@ -27,22 +27,29 @@ class Filter extends React.Component {
             onChange={this.handleFilter}
           />
           <BlockBtns>
-            <Button type="button" name="Все" onClick={this.handleFilterClick}>
-              {filterStatus === "Все" ? "primary" : ""}
+            <Button
+              primary={filterStatus === "Все"}
+              type="button"
+              name="Все"
+              onClick={this.handleFilterClick}
+            >
+              Все
             </Button>
             <Button
               type="button"
               name="Выполненные"
               onClick={this.handleFilterClick}
+              primary={filterStatus === "Выполненные"}
             >
-              {filterStatus === "Выполненные" ? "primary" : ""}
+              Выполненные
             </Button>
             <Button
               type="button"
               name="Удалённые"
               onClick={this.handleFilterClick}
+              primary={filterStatus === "Удалённые"}
             >
-              {filterStatus === "Удалённые" ? "primary" : ""}
+              Удалённые
             </Button>
           </BlockBtns>
         </FilterForm>

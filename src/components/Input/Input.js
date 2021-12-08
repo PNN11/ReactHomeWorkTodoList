@@ -1,10 +1,11 @@
 import { SearchElement } from "./Input.styles";
 
-const Input = ({ label, ...inputProps }) => {
+const Input = ({ label, error, errorMessage, ...inputProps }) => {
   return (
-    <SearchElement>
+    <SearchElement error={error}>
       <label htmlFor={inputProps.id}>{label}</label>
       <input {...inputProps} />
+      {error && <p>{errorMessage}</p>}
     </SearchElement>
   );
 };

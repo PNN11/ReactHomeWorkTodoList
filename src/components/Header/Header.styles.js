@@ -5,6 +5,7 @@ export const Head = styled("header")`
   text-align: center;
   padding: 10px;
   border-radius: 8px;
+  margin-bottom: 30px;
   > h1 {
     color: white;
   }
