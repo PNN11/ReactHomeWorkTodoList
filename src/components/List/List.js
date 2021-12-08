@@ -1,5 +1,5 @@
 import ListItem from "../ListItem";
-
+import { Title } from "./List.style";
 const List = ({ list, onDoneTodo, onDeleteTodo }) => {
   const TodoItems = list.map(({ id, name, done }) => (
     <ListItem
@@ -11,7 +11,7 @@ const List = ({ list, onDoneTodo, onDeleteTodo }) => {
       onDeleteClick={onDeleteTodo}
     />
   ));
-  return <ul>{TodoItems}</ul>;
+  return <ul>{list.length ? TodoItems : <Title>Заданий нет</Title>}</ul>;
 };
 
 export default List;
