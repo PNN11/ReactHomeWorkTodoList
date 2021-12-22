@@ -1,4 +1,7 @@
+import React from "react";
+
 import ListItem from "../ListItem";
+
 import { Title } from "./List.style";
 const List = ({ list, onDoneTodo, onDeleteTodo }) => {
   const TodoItems = list.map(({ id, name, done }) => (

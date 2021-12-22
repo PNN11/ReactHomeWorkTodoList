@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import { Btn } from "./Button.styles";
 
 const Button = ({ children, primary, ...buttonProps }) => {
@@ -8,4 +9,4 @@ const Button = ({ children, primary, ...buttonProps }) => {
   );
 };
 
-export default Button;
+export default memo(Button);

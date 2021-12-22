@@ -11,9 +11,9 @@ export const validateForm = (todoName) => {
   return "";
 };
 
-export const validateBeforeSubmit = (error, touched, context) => {
+export const validateBeforeSubmit = (error, touched, cb) => {
   if (error && !touched) {
-    context.setState(() => ({ touched: true }));
+    cb(true);
     return false;
   }
   if (error) return false;

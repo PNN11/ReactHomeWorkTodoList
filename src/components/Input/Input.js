@@ -1,3 +1,5 @@
+import React from "react";
+
 import { SearchElement } from "./Input.styles";
 
 const Input = ({ label, error, errorMessage, ...inputProps }) => {

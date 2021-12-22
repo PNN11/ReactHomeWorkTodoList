@@ -3,59 +3,58 @@ import Button from "../Button";
 import { FilterForm, BlockBtns } from "./Filter.style";
 import Input from "../Input";
 
-class Filter extends React.Component {
-  handleFilter = (e) => {
-    const { onChangeFilterValue } = this.props;
+const Filter = ({
+  onChangeFilterStatus,
+  onChangeFilterValue,
+  filterStatus,
+}) => {
+  const handleFilter = (e) => {
     onChangeFilterValue(e.target.value);
   };
 
-  handleFilterClick = (e) => {
-    const { onChangeFilterStatus } = this.props;
-    onChangeFilterStatus(e.target.textContent);
+  const handleFilterClick = (e) => {
+    onChangeFilterStatus(e.target.name);
   };
 
-  render() {
-    const { filterStatus } = this.props;
-    return (
-      <section>
-        <FilterForm>
-          <Input
-            name="filterValue"
-            label="Поиск по названию"
-            placeholder="Начни вводить"
-            id="filter"
-            onChange={this.handleFilter}
-          />
-          <BlockBtns>
-            <Button
-              primary={filterStatus === "Все"}
-              type="button"
-              name="Все"
-              onClick={this.handleFilterClick}
-            >
-              Все
-            </Button>
-            <Button
-              type="button"
-              name="Выполненные"
-              onClick={this.handleFilterClick}
-              primary={filterStatus === "Выполненные"}
-            >
-              Выполненные
-            </Button>
-            <Button
-              type="button"
-              name="Удалённые"
-              onClick={this.handleFilterClick}
-              primary={filterStatus === "Удалённые"}
-            >
-              Удалённые
-            </Button>
-          </BlockBtns>
-        </FilterForm>
-      </section>
-    );
-  }
-}
+  return (
+    <section>
+      <FilterForm>
+        <Input
+          name="filterValue"
+          label="Поиск по названию"
+          placeholder="Начни вводить"
+          id="filter"
+          onChange={handleFilter}
+        />
+        <BlockBtns>
+          <Button
+            primary={filterStatus === "Все"}
+            type="button"
+            name="Все"
+            onClick={handleFilterClick}
+          >
+            Все
+          </Button>
+          <Button
+            type="button"
+            name="Выполненные"
+            onClick={handleFilterClick}
+            primary={filterStatus === "Выполненные"}
+          >
+            Выполненные
+          </Button>
+          <Button
+            type="button"
+            name="Удалённые"
+            onClick={handleFilterClick}
+            primary={filterStatus === "Удалённые"}
+          >
+            Удалённые
+          </Button>
+        </BlockBtns>
+      </FilterForm>
+    </section>
+  );
+};
 
 export default Filter;
