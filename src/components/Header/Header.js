@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Head, P } from "./Header.styles";
 
 const Header = ({ todoNumber }) => {
