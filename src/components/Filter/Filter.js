@@ -2,18 +2,21 @@ import React from "react";
 import Button from "../Button";
 import { FilterForm, BlockBtns } from "./Filter.style";
 import Input from "../Input";
+import { useDispatch } from "react-redux";
+import {
+  changeFilterValue,
+  changeFilterStatus,
+} from "../../store/redusers/filterReducer";
 
-const Filter = ({
-  onChangeFilterStatus,
-  onChangeFilterValue,
-  filterStatus,
-}) => {
+const Filter = ({ filterStatus }) => {
+  const dispatch = useDispatch();
+
   const handleFilter = (e) => {
-    onChangeFilterValue(e.target.value);
+    dispatch(changeFilterValue(e.target.value));
   };
 
   const handleFilterClick = (e) => {
-    onChangeFilterStatus(e.target.name);
+    dispatch(changeFilterStatus(e.target.name));
   };
 
   return (

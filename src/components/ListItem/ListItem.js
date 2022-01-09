@@ -1,14 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteTodo, doneTodo } from "../../store/redusers/todoListReducer";
 import Button from "../Button";
 import { ListIt } from "./ListItem.styles";
 
-const ListItem = ({ name, done, onDoneClick, onDeleteClick, id }) => {
+const ListItem = ({ name, done, id }) => {
+  const dispatch = useDispatch();
+
   const handleDone = () => {
-    onDoneClick(id);
+    dispatch(doneTodo(id));
   };
 
   const handleDelete = () => {
-    onDeleteClick(id);
+    dispatch(deleteTodo(id));
   };
 
   return (

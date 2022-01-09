@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import List from "./components/List";
 import Form from "./components/Form";
-import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  const [todoList, setTodoList] = useState(
-    JSON.parse(localStorage.getItem("todoList")) || []
+  const { todoList, deletedTodo } = useSelector(
+    (state) => state.todoListReducer
   );
-  const [deletedTodo, setDeletedTodo] = useState(
-    JSON.parse(localStorage.getItem("deletedTodo")) || []
+
+  const { filterValue, filterStatus } = useSelector(
+    (state) => state.filterReducer
   );
-  const [filterValue, setFilterValue] = useState("");
-  const [filterStatus, setFilterStatus] = useState("Все");
 
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todoList));
@@ -22,31 +21,6 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("deletedTodo", JSON.stringify(deletedTodo));
   }, [deletedTodo]);
-
-  const handleCreateTodo = (name) => {
-    setTodoList((prev) => prev.concat({ name, done: false, id: uuidv4() }));
-  };
-
-  const handleDeleteTodo = (id) => {
-    setTodoList(() => todoList.filter((todo) => todo.id !== id));
-    setDeletedTodo((prev) =>
-      prev.concat(todoList.filter((todo) => todo.id === id))
-    );
-  };
-
-  const handleDoneTodo = (id) => {
-    setTodoList(() =>
-      todoList.map((todo) => (todo.id === id ? { ...todo, done: true } : todo))
-    );
-  };
-
-  const handleChangeFilterValue = (filterValue) => {
-    setFilterValue(filterValue);
-  };
-
-  const handleChangeFilterStatus = (filterStatus) => {
-    setFilterStatus(filterStatus);
-  };
 
   const filterListByStatus = () => {
     if (filterStatus === "Удалённые") {
@@ -72,20 +46,12 @@ const App = () => {
       <Header todoNumber={filteredList.length} />
       {(todoList.length > 0 || deletedTodo.length > 0) && (
         <>
-          <Filter
-            filterStatus={filterStatus}
-            onChangeFilterValue={handleChangeFilterValue}
-            onChangeFilterStatus={handleChangeFilterStatus}
-          />
-          <List
-            list={filteredList}
-            onDoneTodo={handleDoneTodo}
-            onDeleteTodo={handleDeleteTodo}
-          />
+          <Filter filterStatus={filterStatus} />
+          <List list={filteredList} />
         </>
       )}
 
-      <Form onCreateTodo={handleCreateTodo} />
+      <Form />
     </div>
   );
 };

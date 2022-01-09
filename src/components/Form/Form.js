@@ -3,16 +3,20 @@ import Button from "../Button";
 import { validateForm, validateBeforeSubmit } from "./helpers/validateForm";
 import { AddForm } from "./Form.styles";
 import Input from "../Input";
+import { useDispatch } from "react-redux";
+import { createTodo } from "../../store/redusers/todoListReducer";
 
-const Form = ({ onCreateTodo }) => {
+const Form = () => {
   const [name, setName] = useState("");
   const [error, setError] = useState(validateForm(""));
   const [touched, setTouched] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateBeforeSubmit(error, touched, setTouched)) {
-      onCreateTodo(name);
+      dispatch(createTodo(name));
       setName("");
       setError(validateForm(""));
       setTouched(false);
