@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getFilteredList } from "../../store/todo";
 
-import ListItem from "../../containers/ListItem";
+import ListItem from "../ListItem";
 
 import { Title } from "./List.style";
 
