@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from "redux";
 
-import { filterReducer } from "./redusers/filterReducer";
+import { filterReducer } from "./filter";
 
-import { todoListReducer } from "./redusers/todoListReducer";
+import { todoListReducer } from "./todo";
 
 import { composeWithDevTools } from "redux-devtools-extension";
 

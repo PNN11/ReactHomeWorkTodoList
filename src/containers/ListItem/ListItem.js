@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodo, doneTodo } from "../../store/redusers/todoListReducer";
-import Button from "../Button";
+import { deleteTodo, doneTodo } from "../../store/todo";
+import Button from "../../components/Button";
 import { ListIt } from "./ListItem.styles";
 
 const ListItem = ({ name, done, id }) => {

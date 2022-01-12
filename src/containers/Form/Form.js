@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Button from "../Button";
+import Button from "../../components/Button";
 import { validateForm, validateBeforeSubmit } from "./helpers/validateForm";
 import { AddForm } from "./Form.styles";
-import Input from "../Input";
+import Input from "../../components/Input";
 import { useDispatch } from "react-redux";
-import { createTodo } from "../../store/redusers/todoListReducer";
+import { createTodo } from "../../store/todo";
 
 const Form = () => {
   const [name, setName] = useState("");
