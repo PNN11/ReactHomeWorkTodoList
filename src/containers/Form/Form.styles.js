@@ -5,6 +5,6 @@ export const AddForm = styled("form")`
   justify-content: space-between;
   padding: 17px 7px;
   align-items: center;
-  background: linear-gradient(45deg, #80a2bf99, aliceblue);
+  background: ${(props) => props.theme.backgroundColor.form};
   border-radius: 7px;
 `;

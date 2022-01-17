@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { deleteTodo, doneTodo } from "../../store/todo";
 import Button from "../../components/Button";
 import { ListIt } from "./ListItem.styles";
+import { useLocales } from "../../providers/LocalesProvider";
 
 const ListItem = ({ name, done, id }) => {
   const dispatch = useDispatch();
+  const { trans } = useLocales();
 
   const handleDone = () => {
     dispatch(doneTodo(id));
@@ -21,11 +23,11 @@ const ListItem = ({ name, done, id }) => {
       <div>
         {!done && (
           <Button type="button" size="small" onClick={handleDone}>
-            Выполнено
+            {trans.list.buttons.done}
           </Button>
         )}
         <Button type="button" size="small" onClick={handleDelete}>
-          Удалить
+          {trans.list.buttons.delete}
         </Button>
       </div>
     </ListIt>

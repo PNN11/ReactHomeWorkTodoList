@@ -3,18 +3,20 @@ import Button from "../../components/Button";
 import { FilterForm, BlockBtns } from "./Filter.style";
 import Input from "../../components/Input";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
+  getSlice,
   changeFilterValue,
   changeFilterStatus,
-  getFilter,
-} from "../../store/filter";
-import { getSlice } from "../../store/todo";
+} from "../../store/todo";
+import { useLocales } from "../../providers/LocalesProvider";
 
 const Filter = () => {
   const dispatch = useDispatch();
+  const { trans } = useLocales();
+  const { filter } = trans;
 
-  const { filterStatus } = useSelector(getFilter);
-  const { todoList, deletedTodo } = useSelector(getSlice);
+  const { todoList, deletedTodo, filterStatus } = useSelector(getSlice);
 
   const handleFilter = (e) => {
     dispatch(changeFilterValue(e.target.value));
@@ -30,8 +32,8 @@ const Filter = () => {
         <FilterForm>
           <Input
             name="filterValue"
-            label="Поиск по названию"
-            placeholder="Начни вводить"
+            label={filter.input.label}
+            placeholder={filter.input.placeholder}
             id="filter"
             onChange={handleFilter}
           />
@@ -42,7 +44,7 @@ const Filter = () => {
               name="Все"
               onClick={handleFilterClick}
             >
-              Все
+              {filter.buttons.all}
             </Button>
             <Button
               type="button"
@@ -50,7 +52,7 @@ const Filter = () => {
               onClick={handleFilterClick}
               primary={filterStatus === "Выполненные"}
             >
-              Выполненные
+              {filter.buttons.completed}
             </Button>
             <Button
               type="button"
@@ -58,7 +60,7 @@ const Filter = () => {
               onClick={handleFilterClick}
               primary={filterStatus === "Удалённые"}
             >
-              Удалённые
+              {filter.buttons.deleted}
             </Button>
           </BlockBtns>
         </FilterForm>

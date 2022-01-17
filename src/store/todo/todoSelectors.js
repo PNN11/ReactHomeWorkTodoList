@@ -1,8 +1,9 @@
 export const getSlice = (state) => state.todoListReducer;
 
 export const getFilteredList = (state) => {
-  const { todoList, deletedTodo } = state.todoListReducer;
-  const { filterStatus, filterValue } = state.filterReducer;
+  const { todoList, deletedTodo, filterStatus, filterValue } =
+    state.todoListReducer;
+
   let filteredList = todoList;
   if (filterStatus === "Удалённые") {
     filteredList = deletedTodo;

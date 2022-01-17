@@ -8,7 +8,8 @@ export const ListIt = styled("li")`
   border-radius: 8px;
   padding: 7px;
   align-items: center;
-  background: linear-gradient(45deg, aliceblue, #dfdcdc);
+  color: ${(props) => props.theme.color.main};
+  background: ${(props) => props.theme.backgroundColor.listItem};
   > p {
     font-size: 18px;
     text-decoration: ${(props) => {

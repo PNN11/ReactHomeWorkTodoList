@@ -1,9 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
-import { CREATE_TODO, DONE_TODO, DELETE_TODO } from "./";
+import {
+  CREATE_TODO,
+  DONE_TODO,
+  DELETE_TODO,
+  SET_FILTER_VALUE,
+  SET_FILTER_STATUS,
+} from "./";
 
 export const defaultState = {
   todoList: JSON.parse(localStorage.getItem("todoList")) || [],
   deletedTodo: JSON.parse(localStorage.getItem("deletedTodo")) || [],
+  filterValue: "",
+  filterStatus: "Все",
 };
 
 export const todoListReducer = (state = defaultState, action) => {
@@ -31,6 +39,10 @@ export const todoListReducer = (state = defaultState, action) => {
           state.todoList.filter((todo) => todo.id === action.payload)
         ),
       };
+    case SET_FILTER_VALUE:
+      return { ...state, filterValue: action.payload };
+    case SET_FILTER_STATUS:
+      return { ...state, filterStatus: action.payload };
     default:
       return state;
   }

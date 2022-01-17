@@ -5,11 +5,13 @@ import { AddForm } from "./Form.styles";
 import Input from "../../components/Input";
 import { useDispatch } from "react-redux";
 import { createTodo } from "../../store/todo";
+import { useLocales } from "../../providers/LocalesProvider";
 
 const Form = () => {
   const [name, setName] = useState("");
   const [error, setError] = useState(validateForm(""));
   const [touched, setTouched] = useState(false);
+  const { trans } = useLocales();
 
   const dispatch = useDispatch();
 
@@ -37,9 +39,9 @@ const Form = () => {
       <AddForm>
         <Input
           name="name"
-          label="Новое задание"
+          label={trans.form.input.label}
           id="create"
-          placeholder="Название"
+          placeholder={trans.form.input.placeholder}
           onChange={handleChange}
           onBlur={handleBlur}
           value={name}
@@ -48,7 +50,7 @@ const Form = () => {
         />
         <div>
           <Button primary size="big" type="submit" onClick={handleSubmit}>
-            Создать
+            {trans.form.button}
           </Button>
         </div>
       </AddForm>
