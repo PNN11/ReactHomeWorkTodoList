@@ -1,4 +1,4 @@
-export const validateForm = (todoName) => {
+export const validateFormRU = (todoName) => {
   if (todoName.length === 0) {
     return "Поле обязательно для заполнения";
   }
@@ -10,6 +10,21 @@ export const validateForm = (todoName) => {
   }
   return "";
 };
+
+export const validateFormEN = (todoName) => {
+  if (todoName.length === 0) {
+    return "This field is required";
+  }
+  if (todoName.length < 4) {
+    return "Minimum length of this field 4 characters";
+  }
+  if (todoName.length > 20) {
+    return "Maximum length of this field 20 characters";
+  }
+  return "";
+};
+
+export const validateForm = { ru: validateFormRU, en: validateFormEN };
 
 export const validateBeforeSubmit = (error, touched, cb) => {
   if (error && !touched) {

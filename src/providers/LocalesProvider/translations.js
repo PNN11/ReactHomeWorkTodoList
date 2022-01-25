@@ -21,6 +21,7 @@ export const ru = {
     buttons: {
       done: "Выполнено",
       delete: "Удалить",
+      edit: "Изменить",
     },
   },
   form: {
@@ -29,6 +30,16 @@ export const ru = {
       placeholder: "Название",
     },
     button: "Создать",
+  },
+  modal: {
+    input: {
+      label: "Изменить задание",
+      placeholder: "Новое задание",
+    },
+    buttons: {
+      edit: "Изменить",
+      close: "Закрыть",
+    },
   },
 };
 
@@ -55,6 +66,7 @@ export const en = {
     buttons: {
       done: "Done",
       delete: "Delete",
+      edit: "Edit",
     },
   },
   form: {
@@ -63,6 +75,16 @@ export const en = {
       placeholder: "Task name",
     },
     button: "Create",
+  },
+  modal: {
+    input: {
+      label: "Edit task",
+      placeholder: "New task",
+    },
+    buttons: {
+      edit: "Edit",
+      close: "Close",
+    },
   },
 };
 

@@ -14,7 +14,7 @@ const LocalesProvider = ({ children }) => {
   }, []);
 
   return (
-    <LocalesContext.Provider value={{ trans: langs[lang], toggleLang }}>
+    <LocalesContext.Provider value={{ trans: langs[lang], lang, toggleLang }}>
       {children}
     </LocalesContext.Provider>
   );

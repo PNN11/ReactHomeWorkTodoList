@@ -8,10 +8,10 @@ import { createTodo } from "../../store/todo";
 import { useLocales } from "../../providers/LocalesProvider";
 
 const Form = () => {
+  const { trans, lang } = useLocales();
   const [name, setName] = useState("");
-  const [error, setError] = useState(validateForm(""));
   const [touched, setTouched] = useState(false);
-  const { trans } = useLocales();
+  const error = validateForm[lang](name);
 
   const dispatch = useDispatch();
 
@@ -20,14 +20,13 @@ const Form = () => {
     if (validateBeforeSubmit(error, touched, setTouched)) {
       dispatch(createTodo(name));
       setName("");
-      setError(validateForm(""));
+
       setTouched(false);
     }
   };
 
   const handleChange = (e) => {
     setName(e.target.value);
-    setError(validateForm(e.target.value));
   };
 
   const handleBlur = () => {

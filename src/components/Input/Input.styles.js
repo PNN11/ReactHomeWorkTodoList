@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const SearchElement = styled("div")`
-  width: 50%;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
