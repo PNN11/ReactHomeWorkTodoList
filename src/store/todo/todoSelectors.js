@@ -5,10 +5,10 @@ export const getFilteredList = (state) => {
     state.todoListReducer;
 
   let filteredList = todoList;
-  if (filterStatus === "Удалённые") {
+  if (filterStatus === "Deleted") {
     filteredList = deletedTodo;
   }
-  if (filterStatus === "Выполненные") {
+  if (filterStatus === "Completed") {
     filteredList = todoList.filter((todo) => todo.done === true);
   }
   if (filterValue) {

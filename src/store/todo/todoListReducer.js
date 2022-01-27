@@ -12,7 +12,7 @@ export const defaultState = {
   todoList: JSON.parse(localStorage.getItem("todoList")) || [],
   deletedTodo: JSON.parse(localStorage.getItem("deletedTodo")) || [],
   filterValue: "",
-  filterStatus: "Все",
+  filterStatus: "All",
 };
 
 export const todoListReducer = (state = defaultState, action) => {

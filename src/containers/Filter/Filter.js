@@ -39,26 +39,26 @@ const Filter = () => {
           />
           <BlockBtns>
             <Button
-              primary={filterStatus === "Все"}
+              primary={filterStatus === "All"}
               type="button"
-              name="Все"
+              name="All"
               onClick={handleFilterClick}
             >
               {filter.buttons.all}
             </Button>
             <Button
               type="button"
-              name="Выполненные"
+              name="Completed"
               onClick={handleFilterClick}
-              primary={filterStatus === "Выполненные"}
+              primary={filterStatus === "Completed"}
             >
               {filter.buttons.completed}
             </Button>
             <Button
               type="button"
-              name="Удалённые"
+              name="Deleted"
               onClick={handleFilterClick}
-              primary={filterStatus === "Удалённые"}
+              primary={filterStatus === "Deleted"}
             >
               {filter.buttons.deleted}
             </Button>
