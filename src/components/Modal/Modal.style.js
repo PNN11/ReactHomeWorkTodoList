@@ -19,7 +19,7 @@ export const ModalContent = styled("div")`
   border-radius: 10px;
   transform: translate(-50%, -50%);
   text-align: center;
-  > div:first-child {
-    margin-bottom: 30px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
 `;
