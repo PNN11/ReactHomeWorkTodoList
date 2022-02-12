@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
+import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+
 import { validateForm, validateBeforeSubmit } from "./helpers/validateForm";
 import { AddForm } from "./Form.styles";
 import Input from "../../components/Input";
-import { useDispatch } from "react-redux";
 import { createTodo } from "../../store/todo";
 import { useLocales } from "../../providers/LocalesProvider";
+import Button from "../../components/Button";
 
 const Form = () => {
   const { trans, lang } = useLocales();
@@ -18,7 +20,7 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateBeforeSubmit(error, touched, setTouched)) {
-      dispatch(createTodo(name));
+      dispatch(createTodo(name, uuidv4()));
       setName("");
 
       setTouched(false);

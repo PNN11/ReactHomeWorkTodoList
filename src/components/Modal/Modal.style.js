@@ -14,7 +14,7 @@ export const ModalContent = styled("div")`
   position: fixed;
   top: 50%;
   left: 50%;
-  background: #fafafa;
+  background: ${(props) => props.theme.backgroundColor.main};
   border: 3px solid #565353;
   border-radius: 10px;
   transform: translate(-50%, -50%);

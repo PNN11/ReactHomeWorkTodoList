@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
-import Header from "../../components/Header";
+import { useSelector } from "react-redux";
+
+import Header from "../../components/TodoHeader";
 import Filter from "../Filter";
 import List from "../List";
 import Form from "../Form";
-import { useSelector } from "react-redux";
 import { getFilteredList, getSlice } from "../../store/todo";
 import { TodoWrapper } from "./TodoListContainer.style";
 
 const TodoListContainer = () => {
-  const { todoList, deletedTodo } = useSelector(getSlice);
+  const { todoList, deletedTodo, currentUser } = useSelector(getSlice);
   const filteredList = useSelector(getFilteredList);
 
   useEffect(() => {
-    localStorage.setItem("todoList", JSON.stringify(todoList));
-  }, [todoList]);
-
-  useEffect(() => {
-    localStorage.setItem("deletedTodo", JSON.stringify(deletedTodo));
-  }, [deletedTodo]);
+    localStorage.setItem(
+      `${currentUser}`,
+      JSON.stringify({ todoList, deletedTodo })
+    );
+  }, [todoList, deletedTodo, currentUser]);
 
   return (
     <TodoWrapper>

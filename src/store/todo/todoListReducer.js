@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import {
   CREATE_TODO,
   DONE_TODO,
@@ -6,24 +5,42 @@ import {
   EDIT_TODO,
   SET_FILTER_VALUE,
   SET_FILTER_STATUS,
+  LOGIN,
+  LOGOUT,
 } from "./";
 
 export const defaultState = {
-  todoList: JSON.parse(localStorage.getItem("todoList")) || [],
-  deletedTodo: JSON.parse(localStorage.getItem("deletedTodo")) || [],
+  currentUser: localStorage.getItem("currentUser") || null,
+  todoList:
+    JSON.parse(localStorage.getItem(`${localStorage.getItem("currentUser")}`))
+      ?.todoList || [],
+  deletedTodo:
+    JSON.parse(localStorage.getItem(`${localStorage.getItem("currentUser")}`))
+      ?.deletedTodo || [],
   filterValue: "",
   filterStatus: "All",
 };
 
 export const todoListReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case LOGIN:
+      return {
+        ...state,
+        currentUser: action.payload,
+        todoList: JSON.parse(localStorage.getItem(`${action.payload}`))
+          .todoList,
+        deletedTodo: JSON.parse(localStorage.getItem(`${action.payload}`))
+          .deletedTodo,
+      };
+    case LOGOUT:
+      return { ...state, currentUser: null };
     case CREATE_TODO:
       return {
         ...state,
         todoList: state.todoList.concat({
-          name: action.payload,
+          name: action.payload.name,
           done: false,
-          id: uuidv4(),
+          id: action.payload.id,
         }),
       };
     case DONE_TODO:

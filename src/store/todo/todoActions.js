@@ -10,9 +10,13 @@ export const SET_FILTER_VALUE = "SET_FILTER_VALUE";
 
 export const SET_FILTER_STATUS = "SET_FILTER_STATUS";
 
-export const createTodo = (name) => ({
+export const LOGIN = "LOGIN";
+
+export const LOGOUT = "LOGOUT";
+
+export const createTodo = (name, id) => ({
   type: CREATE_TODO,
-  payload: name,
+  payload: { name, id },
 });
 
 export const doneTodo = (id) => ({ type: DONE_TODO, payload: id });
@@ -33,3 +37,7 @@ export const changeFilterStatus = (status) => ({
   type: SET_FILTER_STATUS,
   payload: status,
 });
+
+export const loginUser = (login) => ({ type: LOGIN, payload: login });
+
+export const logoutUser = () => ({ type: LOGOUT });
