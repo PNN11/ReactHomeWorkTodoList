@@ -39,6 +39,8 @@ export const todoListReducer = (state = defaultState, action) => {
         ...state,
         todoList: state.todoList.concat({
           name: action.payload.name,
+          description: action.payload.description,
+          important: action.payload.important,
           done: false,
           id: action.payload.id,
         }),

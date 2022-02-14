@@ -11,8 +11,8 @@ const List = () => {
   const filteredList = useSelector(getFilteredList);
   const { trans } = useLocales();
 
-  const TodoItems = filteredList.map(({ id, name, done }) => (
-    <ListItem name={name} key={id} done={done} id={id} />
+  const TodoItems = filteredList.map((item) => (
+    <ListItem key={item.id} {...item} />
   ));
   return (
     <ul>

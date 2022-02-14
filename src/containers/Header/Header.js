@@ -22,7 +22,11 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <h1>
-        {header.welcome} {currentUser}
+        {currentUser && (
+          <>
+            {header.welcome} {currentUser}!
+          </>
+        )}
       </h1>
       <div>
         <Button onClick={toggleTheme}>{header.changeTheme}</Button>

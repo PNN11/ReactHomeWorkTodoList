@@ -11,24 +11,35 @@ import Button from "../../components/Button";
 
 const Form = () => {
   const { trans, lang } = useLocales();
-  const [name, setName] = useState("");
+  const [values, setValues] = useState({
+    name: "",
+    description: "",
+    important: false,
+  });
   const [touched, setTouched] = useState(false);
-  const error = validateForm[lang](name);
+  const error = validateForm[lang](values.name);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateBeforeSubmit(error, touched, setTouched)) {
-      dispatch(createTodo(name, uuidv4()));
-      setName("");
-
+      dispatch(createTodo({ ...values, id: uuidv4() }));
+      setValues({
+        name: "",
+        description: "",
+        important: false,
+      });
       setTouched(false);
     }
   };
 
   const handleChange = (e) => {
-    setName(e.target.value);
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeImportant = () => {
+    setValues({ ...values, important: !values.important });
   };
 
   const handleBlur = () => {
@@ -38,17 +49,36 @@ const Form = () => {
   return (
     <section>
       <AddForm>
-        <Input
-          name="name"
-          label={trans.form.input.label}
-          id="create"
-          placeholder={trans.form.input.placeholder}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={name}
-          error={touched && !!error}
-          errorMessage={error}
-        />
+        <div>
+          <Input
+            name="name"
+            label={trans.form.input.label}
+            id="create"
+            placeholder={trans.form.input.placeholder}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.name}
+            error={touched && !!error}
+            errorMessage={error}
+          />
+          <Input
+            name="description"
+            label={trans.form.inputDescription.label}
+            id="description"
+            placeholder={trans.form.inputDescription.placeholder}
+            onChange={handleChange}
+            value={values.description}
+          />
+          <Input
+            type="checkbox"
+            name="important"
+            id="important"
+            label={trans.list.important}
+            checked={values.important}
+            onChange={handleChangeImportant}
+          />
+        </div>
+
         <div>
           <Button primary size="big" type="submit" onClick={handleSubmit}>
             {trans.form.button}

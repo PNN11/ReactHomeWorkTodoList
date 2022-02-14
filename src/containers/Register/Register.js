@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -11,41 +11,45 @@ import { LoginWrapper } from "../Login/Login.styles";
 import { loginUser } from "../../store/todo";
 
 const Register = () => {
+  const [users, setUsers] = useState(
+    JSON.parse(localStorage.getItem("users")) || []
+  );
   const { trans } = useLocales();
   const dispatch = useDispatch();
 
-  const handleCreateUser = (user) => {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push({ ...user, id: users.length });
+  const logins = useMemo(() => users.map((user) => user.login), [users]);
+
+  useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
+
+  const handleCreateUser = (user) => {
+    setUsers([...users, { ...user, id: users.length }]);
     localStorage.setItem(
       `${user.login}`,
       JSON.stringify({ todoList: [], deletedTodo: [] })
     );
+    dispatch(loginUser(user.login));
+    localStorage.setItem("currentUser", user.login);
   };
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    handleReset,
-    errors,
-    touched,
-  } = useFormik({
-    initialValues: { login: "", name: "", lastName: "", password: "" },
-    validationSchema: yup.object().shape({
-      login: yup.string().required(`${trans.register.errors.login}`),
-      name: yup.string().required(`${trans.register.errors.name}`),
-      lastName: yup.string().required(`${trans.register.errors.lastName}`),
-      password: yup.string().required(`${trans.register.errors.password}`),
-    }),
-    onSubmit: (values) => {
-      handleCreateUser(values);
-      dispatch(loginUser(values.login));
-      handleReset();
-    },
-  });
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: { login: "", name: "", lastName: "", password: "" },
+      validationSchema: yup.object().shape({
+        login: yup
+          .string()
+          .required(`${trans.register.errors.login}`)
+          .notOneOf(logins, `${trans.register.errors.sameLogin}`),
+        name: yup.string().required(`${trans.register.errors.name}`),
+        lastName: yup.string().required(`${trans.register.errors.lastName}`),
+        password: yup.string().required(`${trans.register.errors.password}`),
+      }),
+      onSubmit: (values) => {
+        handleCreateUser(values);
+      },
+    });
+
   return (
     <LoginWrapper>
       <h1>{trans.register.title}</h1>

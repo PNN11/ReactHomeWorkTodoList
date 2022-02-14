@@ -14,9 +14,9 @@ export const LOGIN = "LOGIN";
 
 export const LOGOUT = "LOGOUT";
 
-export const createTodo = (name, id) => ({
+export const createTodo = (data) => ({
   type: CREATE_TODO,
-  payload: { name, id },
+  payload: data,
 });
 
 export const doneTodo = (id) => ({ type: DONE_TODO, payload: id });

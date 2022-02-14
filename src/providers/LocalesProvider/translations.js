@@ -19,6 +19,7 @@ export const ru = {
     },
   },
   list: {
+    important: "Важное",
     title: "Заданий нет",
     buttons: {
       done: "Выполнено",
@@ -30,6 +31,10 @@ export const ru = {
     input: {
       label: "Новое задание",
       placeholder: "Название",
+    },
+    inputDescription: {
+      label: "Добавьте описание",
+      placeholder: "Описание",
     },
     button: "Создать",
   },
@@ -92,6 +97,7 @@ export const ru = {
       name: "Поле Имя обязательно для заполнения",
       lastName: "Поле Фамилия обязательно для заполнения",
       password: "Поле Пароль обязательно для заполнения",
+      sameLogin: "Логин уже существует",
     },
   },
 };
@@ -117,6 +123,7 @@ export const en = {
     },
   },
   list: {
+    important: "Important",
     title: "No tasks",
     buttons: {
       done: "Done",
@@ -128,6 +135,10 @@ export const en = {
     input: {
       label: "New task",
       placeholder: "Task name",
+    },
+    inputDescription: {
+      label: "Add description",
+      placeholder: "Description",
     },
     button: "Create",
   },
@@ -190,6 +201,7 @@ export const en = {
       name: "Name is a required field",
       lastName: "LastName is a required field",
       password: "Password is a required field",
+      sameLogin: "Login already exists",
     },
   },
 };

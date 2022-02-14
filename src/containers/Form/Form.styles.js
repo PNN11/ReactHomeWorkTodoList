@@ -7,4 +7,9 @@ export const AddForm = styled("form")`
   align-items: center;
   background: ${(props) => props.theme.backgroundColor.form};
   border-radius: 7px;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
 `;

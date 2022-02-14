@@ -8,7 +8,7 @@ import { ListIt } from "./ListItem.styles";
 import { useLocales } from "../../providers/LocalesProvider";
 import Modal from "../../components/Modal/Modal";
 
-const ListItem = ({ name, done, id }) => {
+const ListItem = ({ name, done, id, description, important }) => {
   const dispatch = useDispatch();
   const { trans, lang } = useLocales();
   const [modal, setModal] = useState(false);
@@ -72,7 +72,12 @@ const ListItem = ({ name, done, id }) => {
           </div>
         </Modal>
       )}
-      <p>{name}</p>
+      <div>
+        <h4>
+          {important && `${trans.list.important}!!!`} {name}
+        </h4>
+        <p>{description}</p>
+      </div>
       <div>
         {!done && (
           <>
