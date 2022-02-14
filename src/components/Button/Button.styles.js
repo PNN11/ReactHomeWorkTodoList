@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 export const Btn = styled("button")`
-  border: 2px solid gray;
+  border: 2px solid #565353;
   border-radius: 7px;
   margin: 5px;
   cursor: pointer;
   font-size: 18px;
   background: ${(props) =>
-    props.primary ? "linear-gradient(97deg,#808080,#efeeef)" : "white"};
-  color: ${(props) => (props.primary ? "white" : "gray")};
+    props.primary ? props.theme.button.bgPrimary : props.theme.button.bg};
+  color: ${(props) =>
+    props.primary ? props.theme.button.colorPrimary : props.theme.color.main};
   padding: ${(props) => {
     if (props.size === "big") {
       return "18px 23px";
