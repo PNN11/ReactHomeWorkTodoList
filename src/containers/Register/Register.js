@@ -9,33 +9,38 @@ import Input from "../../components/Input";
 import { useLocales } from "../../providers/LocalesProvider";
 import { LoginWrapper } from "../Login/Login.styles";
 import { loginUser } from "../../store/todo";
+import {
+  getItemFromLocalStorage,
+  setItemToLocalStorage,
+} from "../../helpers/localStorage";
 
 const Register = () => {
-  const [users, setUsers] = useState(
-    JSON.parse(localStorage.getItem("users")) || []
-  );
+  const [users, setUsers] = useState(getItemFromLocalStorage("users") || []);
   const { trans } = useLocales();
   const dispatch = useDispatch();
 
   const logins = useMemo(() => users.map((user) => user.login), [users]);
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
+    setItemToLocalStorage("users", users);
   }, [users]);
 
   const handleCreateUser = (user) => {
     setUsers([...users, { ...user, id: users.length }]);
-    localStorage.setItem(
-      `${user.login}`,
-      JSON.stringify({ todoList: [], deletedTodo: [] })
-    );
-    dispatch(loginUser(user.login));
-    localStorage.setItem("currentUser", user.login);
+    setItemToLocalStorage(`${user.login}`, { todoList: [], deletedTodo: [] });
+    dispatch(loginUser(user.login, [], []));
+    setItemToLocalStorage("currentUser", user.login);
   };
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
-      initialValues: { login: "", name: "", lastName: "", password: "" },
+      initialValues: {
+        login: "",
+        name: "",
+        lastName: "",
+        email: "",
+        password: "",
+      },
       validationSchema: yup.object().shape({
         login: yup
           .string()
@@ -43,6 +48,10 @@ const Register = () => {
           .notOneOf(logins, `${trans.register.errors.sameLogin}`),
         name: yup.string().required(`${trans.register.errors.name}`),
         lastName: yup.string().required(`${trans.register.errors.lastName}`),
+        email: yup
+          .string()
+          .required(`${trans.register.errors.email}`)
+          .email(`${trans.register.errors.invalidEmail}`),
         password: yup.string().required(`${trans.register.errors.password}`),
       }),
       onSubmit: (values) => {
@@ -81,6 +90,16 @@ const Register = () => {
           value={values.lastName}
           error={touched.lastName && !!errors.lastName}
           errorMessage={touched.lastName && errors.lastName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <Input
+          label={trans.register.inputEmail.label}
+          placeholder={trans.register.inputEmail.placeholder}
+          id="email"
+          value={values.email}
+          error={touched.email && !!errors.email}
+          errorMessage={touched.email && errors.email}
           onChange={handleChange}
           onBlur={handleBlur}
         />

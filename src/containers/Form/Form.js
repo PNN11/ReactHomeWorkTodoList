@@ -1,54 +1,61 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-import { validateForm, validateBeforeSubmit } from "./helpers/validateForm";
 import { AddForm } from "./Form.styles";
 import Input from "../../components/Input";
-import { createTodo } from "../../store/todo";
+import { createTodo, getTodosNames } from "../../store/todo";
 import { useLocales } from "../../providers/LocalesProvider";
 import Button from "../../components/Button";
 
 const Form = () => {
-  const { trans, lang } = useLocales();
-  const [values, setValues] = useState({
-    name: "",
-    description: "",
-    important: false,
-  });
-  const [touched, setTouched] = useState(false);
-  const error = validateForm[lang](values.name);
+  const { trans } = useLocales();
+  const { name, description } = trans.form.errors;
+
+  const todoNames = useSelector(getTodosNames);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateBeforeSubmit(error, touched, setTouched)) {
-      dispatch(createTodo({ ...values, id: uuidv4() }));
-      setValues({
-        name: "",
-        description: "",
-        important: false,
-      });
-      setTouched(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const handleChangeImportant = () => {
-    setValues({ ...values, important: !values.important });
-  };
-
-  const handleBlur = () => {
-    setTouched(true);
-  };
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    handleReset,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      important: false,
+    },
+    validationSchema: yup.object().shape({
+      name: yup
+        .string()
+        .required(`${name.required}`)
+        .min(4, `${name.min}`)
+        .max(20, `${name.max}`)
+        .notOneOf(todoNames, `${name.sameName}`),
+      description: yup.string().max(50, `${description.max}`),
+    }),
+    onSubmit: (values) => {
+      dispatch(
+        createTodo({
+          ...values,
+          id: uuidv4(),
+          date: new Date().toLocaleString(),
+        })
+      );
+      handleReset();
+    },
+  });
 
   return (
     <section>
-      <AddForm>
+      <AddForm onSubmit={handleSubmit}>
         <div>
           <Input
             name="name"
@@ -58,8 +65,8 @@ const Form = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.name}
-            error={touched && !!error}
-            errorMessage={error}
+            error={touched.name && !!errors.name}
+            errorMessage={touched.name && errors.name}
           />
           <Input
             name="description"
@@ -68,6 +75,8 @@ const Form = () => {
             placeholder={trans.form.inputDescription.placeholder}
             onChange={handleChange}
             value={values.description}
+            error={touched.description && !!errors.description}
+            errorMessage={touched.description && errors.description}
           />
           <Input
             type="checkbox"
@@ -75,12 +84,12 @@ const Form = () => {
             id="important"
             label={trans.list.important}
             checked={values.important}
-            onChange={handleChangeImportant}
+            onChange={handleChange}
           />
         </div>
 
         <div>
-          <Button primary size="big" type="submit" onClick={handleSubmit}>
+          <Button primary size="big" type="submit">
             {trans.form.button}
           </Button>
         </div>

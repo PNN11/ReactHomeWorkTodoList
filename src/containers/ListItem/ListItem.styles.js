@@ -11,11 +11,14 @@ export const ListIt = styled("li")`
   color: ${(props) => props.theme.color.main};
   background: ${(props) => props.theme.backgroundColor.listItem};
   > div:first-child {
-    font-size: 18px;
-    text-decoration: ${(props) => {
-      if (props.done) {
-        return "line-through";
-      }
-    }};
+    > h4,
+    p {
+      font-size: 18px;
+      text-decoration: ${(props) => props.done && "line-through"};
+    }
+    > span {
+      font-size: 12px;
+      opacity: 0.7;
+    }
   }
 `;

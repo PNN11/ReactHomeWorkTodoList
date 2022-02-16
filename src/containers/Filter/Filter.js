@@ -1,9 +1,9 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Button from "../../components/Button";
 import { FilterForm, BlockBtns } from "./Filter.style";
 import Input from "../../components/Input";
-import { useDispatch, useSelector } from "react-redux";
-
 import {
   getSlice,
   changeFilterValue,
@@ -53,6 +53,14 @@ const Filter = () => {
               primary={filterStatus === "Completed"}
             >
               {filter.buttons.completed}
+            </Button>
+            <Button
+              type="button"
+              name="Important"
+              onClick={handleFilterClick}
+              primary={filterStatus === "Important"}
+            >
+              {filter.buttons.important}
             </Button>
             <Button
               type="button"

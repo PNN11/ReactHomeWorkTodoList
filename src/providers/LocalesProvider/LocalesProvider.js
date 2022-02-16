@@ -6,6 +6,10 @@ import React, {
   useEffect,
 } from "react";
 
+import {
+  getItemFromLocalStorage,
+  setItemToLocalStorage,
+} from "../../helpers/localStorage";
 import { langs } from "./translations";
 
 const LocalesContext = createContext({});
@@ -13,14 +17,14 @@ const LocalesContext = createContext({});
 export const useLocales = () => useContext(LocalesContext);
 
 const LocalesProvider = ({ children }) => {
-  const [lang, setLang] = useState(localStorage.getItem("language") || "en");
+  const [lang, setLang] = useState(getItemFromLocalStorage("language") || "en");
 
   const toggleLang = useCallback(() => {
     setLang((prev) => (prev === "en" ? "ru" : "en"));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("language", lang);
+    setItemToLocalStorage("language", lang);
   }, [lang]);
 
   return (

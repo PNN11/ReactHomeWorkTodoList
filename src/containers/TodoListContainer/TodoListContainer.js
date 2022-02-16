@@ -7,16 +7,14 @@ import List from "../List";
 import Form from "../Form";
 import { getFilteredList, getSlice } from "../../store/todo";
 import { TodoWrapper } from "./TodoListContainer.style";
+import { setItemToLocalStorage } from "../../helpers/localStorage";
 
 const TodoListContainer = () => {
   const { todoList, deletedTodo, currentUser } = useSelector(getSlice);
   const filteredList = useSelector(getFilteredList);
 
   useEffect(() => {
-    localStorage.setItem(
-      `${currentUser}`,
-      JSON.stringify({ todoList, deletedTodo })
-    );
+    setItemToLocalStorage(`${currentUser}`, { todoList, deletedTodo });
   }, [todoList, deletedTodo, currentUser]);
 
   return (
