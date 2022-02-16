@@ -10,6 +10,10 @@ import {
   createGlobalStyle,
 } from "styled-components";
 
+import {
+  getItemFromLocalStorage,
+  setItemToLocalStorage,
+} from "../../helpers/localStorage";
 import { lightTheme, darkTheme } from "./constants";
 
 const GlobalStyle = createGlobalStyle`
@@ -27,14 +31,16 @@ const ThemeContext = createContext({});
 export const useTheme = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(
+    getItemFromLocalStorage("theme") || "light"
+  );
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("theme", theme);
+    setItemToLocalStorage("theme", theme);
   }, [theme]);
 
   return (

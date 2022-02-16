@@ -1,3 +1,4 @@
+import { getItemFromLocalStorage } from "../../helpers/localStorage";
 import {
   CREATE_TODO,
   DONE_TODO,
@@ -10,12 +11,12 @@ import {
 } from "./";
 
 export const defaultState = {
-  currentUser: localStorage.getItem("currentUser") || null,
+  currentUser: getItemFromLocalStorage("currentUser") || null,
   todoList:
-    JSON.parse(localStorage.getItem(`${localStorage.getItem("currentUser")}`))
-      ?.todoList || [],
+    getItemFromLocalStorage(getItemFromLocalStorage("currentUser"))?.todoList ||
+    [],
   deletedTodo:
-    JSON.parse(localStorage.getItem(`${localStorage.getItem("currentUser")}`))
+    getItemFromLocalStorage(getItemFromLocalStorage("currentUser"))
       ?.deletedTodo || [],
   filterValue: "",
   filterStatus: "All",
@@ -26,11 +27,9 @@ export const todoListReducer = (state = defaultState, action) => {
     case LOGIN:
       return {
         ...state,
-        currentUser: action.payload,
-        todoList: JSON.parse(localStorage.getItem(`${action.payload}`))
-          .todoList,
-        deletedTodo: JSON.parse(localStorage.getItem(`${action.payload}`))
-          .deletedTodo,
+        currentUser: action.payload.login,
+        todoList: action.payload.todoList,
+        deletedTodo: action.payload.deletedTodo,
       };
     case LOGOUT:
       return { ...state, currentUser: null };
@@ -38,11 +37,8 @@ export const todoListReducer = (state = defaultState, action) => {
       return {
         ...state,
         todoList: state.todoList.concat({
-          name: action.payload.name,
-          description: action.payload.description,
-          important: action.payload.important,
+          ...action.payload,
           done: false,
-          id: action.payload.id,
         }),
       };
     case DONE_TODO:
@@ -65,7 +61,7 @@ export const todoListReducer = (state = defaultState, action) => {
         ...state,
         todoList: state.todoList.map((todo) =>
           todo.id === action.payload.id
-            ? { ...todo, name: action.payload.newName }
+            ? { ...todo, ...action.payload.newTask }
             : todo
         ),
       };

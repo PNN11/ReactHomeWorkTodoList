@@ -8,6 +8,10 @@ import { useLocales } from "../../providers/LocalesProvider";
 import { LoginWrapper } from "./Login.styles";
 import { loginUser } from "../../store/todo";
 import { validateBeforeLogin } from "./helpers/validate";
+import {
+  getItemFromLocalStorage,
+  setItemToLocalStorage,
+} from "../../helpers/localStorage";
 
 const Login = () => {
   const { trans } = useLocales();
@@ -29,11 +33,12 @@ const Login = () => {
       setError(`${trans.login.errors.main}`);
       return;
     }
-    const users = JSON.parse(localStorage.getItem("users"));
+    const users = getItemFromLocalStorage("users");
     const { login, error } = validateBeforeLogin(users, loginData, trans);
     if (login) {
-      dispatch(loginUser(login));
-      localStorage.setItem("currentUser", login);
+      const { todoList, deletedTodo } = getItemFromLocalStorage(`${login}`);
+      dispatch(loginUser(login, todoList, deletedTodo));
+      setItemToLocalStorage("currentUser", login);
     } else {
       setError(error);
     }

@@ -11,12 +11,12 @@ const List = () => {
   const filteredList = useSelector(getFilteredList);
   const { trans } = useLocales();
 
-  const TodoItems = filteredList.map((item) => (
+  const todoItems = filteredList.map((item) => (
     <ListItem key={item.id} {...item} />
   ));
   return (
     <ul>
-      {filteredList.length ? TodoItems : <Title>{trans.list.title}</Title>}
+      {filteredList.length ? todoItems : <Title>{trans.list.title}</Title>}
     </ul>
   );
 };

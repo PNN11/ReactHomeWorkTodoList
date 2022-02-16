@@ -16,11 +16,13 @@ export const ru = {
       all: "Все",
       completed: "Выполненные",
       deleted: "Удалённые",
+      important: "Важные",
     },
   },
   list: {
     important: "Важное",
     title: "Заданий нет",
+    created: "Создано",
     buttons: {
       done: "Выполнено",
       delete: "Удалить",
@@ -37,6 +39,17 @@ export const ru = {
       placeholder: "Описание",
     },
     button: "Создать",
+    errors: {
+      name: {
+        required: "Поле обязательно для заполнения",
+        min: "Минимальная длинна 4 символа",
+        max: "Максимальная длинна 20 символов",
+        sameName: "Задание с таким названием уже существует",
+      },
+      description: {
+        max: "Максимальная длинна 50 символов",
+      },
+    },
   },
   modal: {
     input: {
@@ -83,6 +96,10 @@ export const ru = {
       label: "Фамилия",
       placeholder: "Введите свою фамилию",
     },
+    inputEmail: {
+      label: "Email",
+      placeholder: "Введите свой email",
+    },
     inputPassword: {
       label: "Пароль",
       placeholder: "Введите пароль",
@@ -96,6 +113,8 @@ export const ru = {
       login: "Поле Логин обязательно для заполнения",
       name: "Поле Имя обязательно для заполнения",
       lastName: "Поле Фамилия обязательно для заполнения",
+      email: "Поле Email обязательно для заполнения",
+      invalidEmail: "Неправильный адрес электронной почты",
       password: "Поле Пароль обязательно для заполнения",
       sameLogin: "Логин уже существует",
     },
@@ -120,11 +139,13 @@ export const en = {
       all: "All",
       completed: "Completed",
       deleted: "Deleted",
+      important: "Important",
     },
   },
   list: {
     important: "Important",
     title: "No tasks",
+    created: "Created",
     buttons: {
       done: "Done",
       delete: "Delete",
@@ -141,6 +162,17 @@ export const en = {
       placeholder: "Description",
     },
     button: "Create",
+    errors: {
+      name: {
+        required: "This field is required",
+        min: "Minimum length of this field 4 characters",
+        max: "Maximum length of this field 20 characters",
+        sameName: "Task with this name already exists",
+      },
+      description: {
+        max: "Maximum length of this field 50 characters",
+      },
+    },
   },
   modal: {
     input: {
@@ -187,6 +219,10 @@ export const en = {
       label: "Last Name",
       placeholder: "Enter your last Name",
     },
+    inputEmail: {
+      label: "Email",
+      placeholder: "Enter your email",
+    },
     inputPassword: {
       label: "Password",
       placeholder: "Enter your password",
@@ -200,6 +236,8 @@ export const en = {
       login: "Login is a required field",
       name: "Name is a required field",
       lastName: "LastName is a required field",
+      email: "Email is a required field",
+      invalidEmail: "This field must be a valid email",
       password: "Password is a required field",
       sameLogin: "Login already exists",
     },

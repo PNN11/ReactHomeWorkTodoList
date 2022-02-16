@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/Button";
+import { removeItemFromLocalStorage } from "../../helpers/localStorage";
 import { useLocales } from "../../providers/LocalesProvider";
 import { useTheme } from "../../providers/ThemeProvider/ThemeProvider";
 import { logoutUser, getSlice } from "../../store/todo";
@@ -16,7 +17,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    localStorage.removeItem("currentUser");
+    removeItemFromLocalStorage("currentUser");
   };
 
   return (

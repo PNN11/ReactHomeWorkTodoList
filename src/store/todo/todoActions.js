@@ -23,9 +23,9 @@ export const doneTodo = (id) => ({ type: DONE_TODO, payload: id });
 
 export const deleteTodo = (id) => ({ type: DELETE_TODO, payload: id });
 
-export const editTodo = (id, newName) => ({
+export const editTodo = (id, newTask) => ({
   type: EDIT_TODO,
-  payload: { id, newName },
+  payload: { id, newTask },
 });
 
 export const changeFilterValue = (value) => ({
@@ -38,6 +38,9 @@ export const changeFilterStatus = (status) => ({
   payload: status,
 });
 
-export const loginUser = (login) => ({ type: LOGIN, payload: login });
+export const loginUser = (login, todoList, deletedTodo) => ({
+  type: LOGIN,
+  payload: { login, todoList, deletedTodo },
+});
 
 export const logoutUser = () => ({ type: LOGOUT });
